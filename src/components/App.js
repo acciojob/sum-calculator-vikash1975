@@ -1,13 +1,36 @@
+import React, { useState, useEffect } from "react";
 
-import React from "react";
-import './../styles/App.css';
+function App() {
+  const [inputValue, setInputValue] = useState("");
+  const [sum, setSum] = useState(0);
 
-const App = () => {
+  useEffect(() => {
+    let total = 0;
+
+    for (let char of inputValue) {
+      let num = parseInt(char);
+      if (!isNaN(num)) {
+        total += num;
+      }
+    }
+
+    setSum(total);
+  }, [inputValue]);
+
   return (
-    <div>
-        {/* Do not remove the main div */}
+    <div style={{ padding: "20px" }}>
+      <h2>Live Sum Calculator</h2>
+
+      <input
+        type="text"
+        placeholder="Type numbers"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+
+      <h3>Total Sum: {sum}</h3>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
